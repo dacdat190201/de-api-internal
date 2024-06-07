@@ -16,8 +16,8 @@ module.exports = {
     requireConfigFile: false,
     allowImportExportEverywhere: true
   },
-  plugins: [],
-  rules: {
+  plugins: ['prettier'],
+  rules:  {
     // Common
     "no-console": 1,
     "no-extra-boolean-cast": 0,
@@ -30,13 +30,16 @@ module.exports = {
     "object-curly-spacing": [1, "always"],
     "indent": ["warn", 2],
     "semi": [1, "never"],
-    "quotes": ["error", "double"],
+    // Remove the "quotes" rule that specifies double quotes
     "array-bracket-spacing": 1,
     "linebreak-style": 0,
     "no-unexpected-multiline": "warn",
     "keyword-spacing": 1,
     "comma-dangle": 1,
     "comma-spacing": 1,
-    "arrow-spacing": 1
+    "arrow-spacing": 1,
+    
+    // Enforce single quotes directly
+    "quotes": ["error", "single"]
   }
 }

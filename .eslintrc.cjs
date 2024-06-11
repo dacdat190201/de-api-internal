@@ -27,7 +27,7 @@ module.exports = {
     "space-before-blocks": ["error", "always"],
     "object-curly-spacing": [1, "always"],
     indent: ["warn", 2],
-    semi: [1, "never"],
+    // semi: [1, "never"],
     // Remove the "quotes" rule that specifies double quotes
     "array-bracket-spacing": 1,
     "linebreak-style": 0,

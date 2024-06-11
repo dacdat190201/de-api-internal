@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 
+let trelloDatabaseintstance = null;
 export const connectDB = async () => {
   try {
     const connection = await mysql.createConnection({
@@ -9,10 +10,16 @@ export const connectDB = async () => {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     });
-    console.log("Connected successfully to the database!");
-    return connection;
+    trelloDatabaseintstance = connection;
+    return trelloDatabaseintstance;
   } catch (error) {
     console.error("Error connecting to the database:", error);
     throw error;
   }
+};
+
+export const GET_DB = () => {
+  if (!trelloDatabaseintstance)
+    throw new Error("Must connect to database first");
+  return trelloDatabaseintstance;
 };

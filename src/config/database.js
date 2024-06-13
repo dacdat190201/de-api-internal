@@ -17,6 +17,7 @@ export const connectDB = async () => {
       });
       trelloDatabaseInstance = pool;
     }
+
     return trelloDatabaseInstance;
   } catch (error) {
     console.error("Error connecting to the database:", error);

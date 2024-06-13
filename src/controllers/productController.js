@@ -3,7 +3,8 @@ import { productService } from "~/services/productsService";
 
 const getAllProducts = async (req, res, next) => {
   try {
-    res.status(StatusCodes.OK).json(productService.getAllProducts);
+    const products = await productService.getAllProducts();
+    res.status(StatusCodes.OK).json(products);
   } catch (error) {
     next(error);
   }

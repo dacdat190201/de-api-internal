@@ -7,7 +7,7 @@ const {
 } = require("~/validations/validators");
 
 //define collection (Name & schema)
-const PRODUCTS_COLLECTION_NAME = "products";
+const CATEGORIES_COLLECTION_NAME = "categories";
 const PRODUCTS_COLLECTION_SCHEMA = Joi.object({
   id: Joi.string()
     .required()
@@ -22,17 +22,20 @@ const PRODUCTS_COLLECTION_SCHEMA = Joi.object({
   deleted_at: Joi.date().timestamp("javascript").default(null),
 });
 
-const getAllProducts = async () => {
+const getOneCateGories = async () => {
   try {
     const pool = GET_DB();
     const [rows] = await pool.query(
-      `SELECT * FROM ${PRODUCTS_COLLECTION_NAME}`
+      `select * from categories, sub_categories, products ,products_skus, users
+where categories.id = sub_categories.parent_id 
+and sub_categories.id = products.category_id and products.user_id = users.id
+and products_skus.product_id = products.id`
     );
     return rows;
   } catch (error) {
     throw new Error(error.message);
   }
 };
-export const productModel = {
-  getAllProducts,
+export const categoriesModel = {
+  getOneCateGories,
 };

@@ -1,17 +1,26 @@
 import { StatusCodes } from "http-status-codes";
+import { boardService } from "~/services/boardService";
+
 const createNew = async (req, res, next) => {
-  //kiem tra dieu kien
   try {
-    console.log(req.body);
-    res
-      .status(StatusCodes.CREATED)
-      .json({ message: "POS Validation: API create list" });
+    // Dieu huong DL sang tang service
+    const createBoard = await boardService.createNew(req.body);
+    //results tra ve phia Clients
+    res.status(StatusCodes.CREATED).json(createBoard);
   } catch (error) {
-    res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ error: error.message });
+    next(error);
+  }
+};
+const getDetails = async (req, res, next) => {
+  try {
+    const boardId = req.params.id;
+    const board = await boardService.getDetails(boardId);
+    res.status(StatusCodes.OK).json(board);
+  } catch (error) {
+    next(error);
   }
 };
 export const boardController = {
   createNew,
+  getDetails,
 };

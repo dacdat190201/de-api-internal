@@ -5,6 +5,7 @@ import {
   OBJECT_ID_RULE,
   OBJECT_ID_RULE_MESSAGE,
 } from "~/validations/validators";
+import { columnModel } from "./columnModel";
 
 //define collection (Name & schema)
 const BOARD_COLLECTION_NAME = "boards";
@@ -43,11 +44,30 @@ const findOneId = async (id) => {
     throw new Error(error);
   }
 };
+
 const getDetails = async (id) => {
   try {
-    const result = await GET_DB.collection(BOARD_COLLECTION_NAME).findOne({
-      _id: id,
-    });
+    // const result = await GET_DB.collection(BOARD_COLLECTION_NAME).findOne({
+    //   _id: id,
+    // });
+    //query tong hop
+    const result = await GET_DB.collection(BOARD_COLLECTION_NAME).aggregate([
+      {
+        $match: {
+          // _id: new ObjectId(id),//cuar mogoDB
+          _id: id,
+          _destroy: false,
+        },
+      },
+      {
+        $lookup: {
+          form: columnModel.COLUMN.COLLECTION_NAME,
+          localField: "_id",
+          foreignField: "boardId",
+        },
+      },
+      {},
+    ]);
     return result;
   } catch (error) {
     throw new Error(error);

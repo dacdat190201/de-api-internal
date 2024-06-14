@@ -1,75 +1,58 @@
-const Sequelize = require('sequelize');
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('cart_item', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+const Sequelize = require("sequelize");
+module.exports = function (sequelize, DataTypes) {
+  return sequelize.define(
+    "cart_item",
+    {
+      id: {
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+      },
+      cart_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: "cart",
+          key: "id",
+        },
+      },
+      product_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: "products",
+          key: "id",
+        },
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
-    cart_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'cart',
-        key: 'id'
-      }
-    },
-    product_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'products',
-        key: 'id'
-      }
-    },
-    products_sku_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'products_skus',
-        key: 'id'
-      }
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+    {
+      sequelize,
+      tableName: "cart_item",
+      timestamps: false,
+      paranoid: true,
+      indexes: [
+        {
+          name: "PRIMARY",
+          unique: true,
+          using: "BTREE",
+          fields: [{ name: "id" }],
+        },
+        {
+          name: "cart_id",
+          using: "BTREE",
+          fields: [{ name: "cart_id" }],
+        },
+        {
+          name: "product_id",
+          using: "BTREE",
+          fields: [{ name: "product_id" }],
+        },
+      ],
     }
-  }, {
-    sequelize,
-    tableName: 'cart_item',
-    timestamps: true,
-    paranoid: true,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "cart_id",
-        using: "BTREE",
-        fields: [
-          { name: "cart_id" },
-        ]
-      },
-      {
-        name: "product_id",
-        using: "BTREE",
-        fields: [
-          { name: "product_id" },
-        ]
-      },
-      {
-        name: "products_sku_id",
-        using: "BTREE",
-        fields: [
-          { name: "products_sku_id" },
-        ]
-      },
-    ]
-  });
+  );
 };

@@ -9,14 +9,6 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         primaryKey: true,
       },
-      user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
       name: {
         type: DataTypes.STRING(100),
         allowNull: true,
@@ -31,6 +23,10 @@ module.exports = function (sequelize, DataTypes) {
       },
       cover: {
         type: DataTypes.STRING(100),
+        allowNull: true,
+      },
+      price: {
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
       },
       category_id: {
@@ -58,11 +54,6 @@ module.exports = function (sequelize, DataTypes) {
           name: "category_id",
           using: "BTREE",
           fields: [{ name: "category_id" }],
-        },
-        {
-          name: "user_id",
-          using: "BTREE",
-          fields: [{ name: "user_id" }],
         },
       ],
     }

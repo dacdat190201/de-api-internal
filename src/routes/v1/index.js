@@ -8,6 +8,6 @@ const Router = express.Router();
 //   res.status(StatusCodes.OK).json({ message: "APIs V1 are ready" });
 // });
 // Router.use("/boards", boardRoute);
-Router.use("/products", productRoute);
+Router.use("/products-by-categories", productRoute);
 
 export const APIs_V1 = Router;

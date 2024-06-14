@@ -1,33 +1,43 @@
-const mysql = require("mysql2/promise");
+const { Sequelize } = require("sequelize");
+require("dotenv").config();
 
-let trelloDatabaseInstance = null;
+let sequelizeInstance = null;
 
 export const connectDB = async () => {
   try {
-    if (!trelloDatabaseInstance) {
-      const pool = await mysql.createPool({
+    if (!sequelizeInstance) {
+      sequelizeInstance = new Sequelize({
         host: process.env.DB_HOST_SERVER,
         port: process.env.DB_PORT,
-        user: process.env.DB_USER,
+        username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0,
+        dialect: "mysql",
+        logging: false, // Disable logging; default: console.log
+        pool: {
+          max: 10,
+          min: 0,
+          acquire: 30000,
+          idle: 10000,
+        },
       });
-      trelloDatabaseInstance = pool;
+      await sequelizeInstance.authenticate();
+      console.log("Connection has been established successfully.");
+
+      // Sync all defined models to the DB.
+      await sequelizeInstance.sync();
     }
 
-    return trelloDatabaseInstance;
+    return sequelizeInstance;
   } catch (error) {
-    console.error("Error connecting to the database:", error);
+    console.error("Unable to connect to the database:", error);
     throw error;
   }
 };
 
 export const GET_DB = () => {
-  if (!trelloDatabaseInstance) {
+  if (!sequelizeInstance) {
     throw new Error("Must connect to database first");
   }
-  return trelloDatabaseInstance;
+  return sequelizeInstance;
 };

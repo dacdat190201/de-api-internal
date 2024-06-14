@@ -20,6 +20,9 @@ export const connectDB = async () => {
           acquire: 30000,
           idle: 10000,
         },
+        define: {
+          timestamps: false,
+        },
       });
       await sequelizeInstance.authenticate();
       console.log("Connection has been established successfully.");

@@ -7,7 +7,7 @@ const Router = express.Router();
 // Router.get("/status", (req, res) => {
 //   res.status(StatusCodes.OK).json({ message: "APIs V1 are ready" });
 // });
-Router.use("/boards", boardRoute);
+// Router.use("/boards", boardRoute);
 Router.use("/products", productRoute);
 
 export const APIs_V1 = Router;

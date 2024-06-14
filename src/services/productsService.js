@@ -9,18 +9,14 @@ const getAllProducts = async () => {
     const sequelize = GET_DB();
     const models = initModels(sequelize);
     const listProducts = await models.products.findAll({
-      include: [
-        {
-          model: models.users,
-          attributes: ["id", "username", "avatar"], //lấy ra info user
-        },
-        {
-          model: models.sub_categories,
-          attributes: ["id", "name", "description"],
-          include: [
-            { model: models.categories, attributes: ["parent_id", "name"] },
-          ],
-        },
+      attributes: [
+        "id",
+        "name",
+        "description",
+        "cover",
+        "summary",
+        "price",
+        "created_at",
       ],
     });
     if (!listProducts || listProducts.length === 0) {

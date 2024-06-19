@@ -27,6 +27,16 @@ const getAllProducts = async () => {
     throw error;
   }
 };
+const getCategories = async () => {
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const sequelize = GET_DB();
+    const models = initModels(sequelize);
+    const listCategories = await models.categories.findAll();
+  } catch (error) {
+    throw error;
+  }
+};
 export const productService = {
   getAllProducts,
 };

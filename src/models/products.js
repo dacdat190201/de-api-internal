@@ -25,6 +25,10 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
+      address: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+      },
       price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
@@ -33,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-          model: "sub_categories",
+          model: "categories",
           key: "id",
         },
       },

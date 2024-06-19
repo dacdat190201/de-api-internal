@@ -13,7 +13,8 @@
     "build-babel": "babel ./src -d ./build/src",
     "build": "npm run clean && npm run build-babel",
     "production": "npm run build && node ./build/src/server.js",
-    "dev": "nodemon --exec babel-node ./src/server.js"
+    "dev": "nodemon --exec babel-node ./src/server.js",
+    "generate-models": "sequelize-auto -o './src/models' -d D_Ecommerce -h 180.16.10.144 -u root -p 3308 -x root -e mysql"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.10",

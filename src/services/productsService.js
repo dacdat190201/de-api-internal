@@ -41,7 +41,25 @@ const getCategories = async () => {
     throw error;
   }
 };
+const getProductByCategoryId = async (categoryId) => {
+  try {
+    const sequelize = GET_DB();
+    const models = initModels(sequelize);
+    // Example: Fetch products from database based on categoryId
+    const products = await models.products.findAll({
+      where: { category_id: categoryId },
+      include: [{ model: models.product_attributes, as: "product_attributes" }],
+      limit: 4,
+    });
+    return products;
+  } catch (error) {
+    throw new Error(
+      `Unable to fetch products for categoryId ${categoryId}: ${error.message}`
+    );
+  }
+};
 export const productService = {
   getAllProducts,
   getCategories,
+  getProductByCategoryId,
 };

@@ -27,7 +27,22 @@ const getALlCategories = async (req, res, next) => {
     next(error);
   }
 };
+const getProductByCategories = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const products = await productService.getProductByCategoryId(id);
+    const message = new Message(
+      true,
+      "List of products by categories",
+      products
+    );
+    res.status(StatusCodes.OK).json(message);
+  } catch (error) {
+    next(error);
+  }
+};
 export const productController = {
   getAllProducts,
   getALlCategories,
+  getProductByCategories,
 };

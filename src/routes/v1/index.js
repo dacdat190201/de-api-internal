@@ -1,6 +1,6 @@
 import express from "express";
-import { boardRoute } from "./boardRoute";
 import { productRoute } from "./productRoute";
+import { categoriesRoute } from "./categoriesRoute";
 
 const Router = express.Router();
 // Define your routes here
@@ -9,5 +9,6 @@ const Router = express.Router();
 // });
 // Router.use("/boards", boardRoute);
 Router.use("/products-by-categories", productRoute);
+Router.use("/categories", categoriesRoute);
 
 export const APIs_V1 = Router;

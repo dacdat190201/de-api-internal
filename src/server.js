@@ -3,12 +3,23 @@ import { connectDB, GET_DB } from "~/config/database";
 import { env } from "~/config/environment";
 import { APIs_V1 } from "~/routes/v1/";
 import { errorHandlingMiddleware } from "./middlewares/errorHandlingMiddleware";
+import cors from "cors";
 
 const START_SERVER = () => {
   const app = express();
   //parse ra json
-  app.use(express.json());
-
+  // app.use(cors({
+  //   origin: 'http://example.com', // Chỉ cho phép origin http://example.com
+  //   allowedHeaders: ['Content-Type', 'Authorization'], // Chỉ cho phép các headers nhất định
+  //   exposedHeaders: ['Content-Length'], // Các headers sẽ được phép truy cập từ client
+  //   credentials: true, // Cho phép sử dụng cookies, xác thực HTTP
+  //   maxAge: 86400, // Thời gian lưu trữ preflight request (24 giờ)
+  // }));
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
   //use api v1
   app.use("/v1", APIs_V1);
 

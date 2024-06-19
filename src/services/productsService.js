@@ -33,10 +33,15 @@ const getCategories = async () => {
     const sequelize = GET_DB();
     const models = initModels(sequelize);
     const listCategories = await models.categories.findAll();
+    if (!listCategories || listCategories.length === 0) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "Categories not found!");
+    }
+    return listCategories;
   } catch (error) {
     throw error;
   }
 };
 export const productService = {
   getAllProducts,
+  getCategories,
 };

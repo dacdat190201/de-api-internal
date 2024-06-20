@@ -15,6 +15,7 @@ const START_SERVER = () => {
   //   credentials: true, // Cho phép sử dụng cookies, xác thực HTTP
   //   maxAge: 86400, // Thời gian lưu trữ preflight request (24 giờ)
   // }));
+
   app.use(express.static("src"));
   app.use("src/images", express.static("images"));
 
